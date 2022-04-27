@@ -15,7 +15,7 @@ test('place ship on gameboard', () => {
 test('hit ship', () => {
     testBoard.placeShip(0, 0, 2);
     testBoard.gameboardArr[0][0].hitShip();
-    expect(testBoard.gameboardArr[0][0].isHit).toBe(true)
+    expect(testBoard.gameboardArr[0][0].isHit).toBe(true);
 })
 
 test('destroy ship', () => {
@@ -23,10 +23,10 @@ test('destroy ship', () => {
     testBoard.receiveAttack(0, 0);
     testBoard.receiveAttack(0, 1);
     testBoard.receiveAttack(0, 2);
-    expect(testBoard.gameboardArr[0][0].isHit).toBe(true)
-    expect(testBoard.gameboardArr[0][1].isHit).toBe(true)
-    expect(testBoard.gameboardArr[0][2].isHit).toBe(true)
-    expect(testBoard.gameboardArr[0][0].sunkStatus).toBe(true)
+    expect(testBoard.gameboardArr[0][0].isHit).toBe(true);
+    expect(testBoard.gameboardArr[0][1].isHit).toBe(true);
+    expect(testBoard.gameboardArr[0][2].isHit).toBe(true);
+    expect(testBoard.gameboardArr[0][0].sunkStatus).toBe(true);
 })
 
 test('hit gameboard', () => {;
