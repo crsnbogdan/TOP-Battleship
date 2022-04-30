@@ -8,7 +8,7 @@ function ShipFactory(shipLength) {
         shipPiece.containsShip = true;
         shipPiece.isHit = false;
         shipPiece.shipType = `${shipLength}`;
-        shipPiece.sunkStatus = false;
+        shipPiece.sinkStatus = false;
 
         shipPiece.hitShip = function() {
             if (this.containsShip === false || this.sinkStatus === true) return;
@@ -143,7 +143,8 @@ function Gameboard() {
     ];
     gameboardArr.forEach((gameBoardRow) => {
         gameBoardRow.forEach((gameBoardItem) => {
-            (gameBoardItem.containsShip = false), (gameBoardItem.isHit = false);
+            gameBoardItem.containsShip = false;
+            gameBoardItem.isHit = false;;
         });
     });
 
@@ -176,18 +177,16 @@ function Gameboard() {
         return shipInfo;
     }
 
-    function updateShipSunkStatus(shipInfo) {
+    function updateShipSinkStatus(shipInfo) {
         let shipHitCounter = 0;
-        let shipSunkStatus = false;
         for (let i = 0; i < shipInfo[1].length; i++) {
             if (gameboardArr[shipInfo[0]][shipInfo[1][i]].isHit === true) {
                 shipHitCounter++;
             }
         }
         if (shipHitCounter === shipInfo[1].length) {
-            shipSunkStatus = true;
             for (let i = 0; i < shipInfo[1].length; i++) {
-                gameboardArr[shipInfo[0]][shipInfo[1][i]].sunkStatus = true;
+                gameboardArr[shipInfo[0]][shipInfo[1][i]].sinkStatus = true;
             }
         }
     }
@@ -199,9 +198,8 @@ function Gameboard() {
             gameboardArr[xCoord][yCoord].isHit = true;
         }
         let currentShipType = gameboardArr[xCoord][yCoord].shipType;
-        updateShipSunkStatus(getShipOfType(currentShipType));
+        updateShipSinkStatus(getShipOfType(currentShipType));
     }
-
     return { gameboardArr, placeShip, receiveAttack };
 }
 

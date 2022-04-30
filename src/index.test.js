@@ -1,14 +1,20 @@
 const { Gameboard } = require('./index')
 let testBoard = Gameboard();
 
+test('hit gameboard', () => {;
+    testBoard.receiveAttack(4, 6);
+    expect(testBoard.gameboardArr[4][5].isHit).toBe(false);
+    expect(testBoard.gameboardArr[4][6].isHit).toBe(true);
+    expect(testBoard.gameboardArr[4][7].isHit).toBe(false);
+})
 
 test('place ship on gameboard', () => {
     expect(testBoard.placeShip(0, 9, 2)).toBe(false);
     expect(testBoard.placeShip(0, 9, 1)).toBe(true);
     expect(testBoard.placeShip(9, 9, 2)).toBe(false);
     expect(testBoard.placeShip(9, 8, 2)).toBe(true);
-    expect(testBoard.placeShip(-1, 9, -1)).toBe(false);
-    expect(testBoard.placeShip(1, -9, -1)).toBe(false);
+    expect(testBoard.placeShip(-1, 9, 1)).toBe(false);
+    expect(testBoard.placeShip(1, -9, 1)).toBe(false);
     expect(testBoard.placeShip(1, 9, -1)).toBe(false);
 })
 
@@ -26,11 +32,7 @@ test('destroy ship', () => {
     expect(testBoard.gameboardArr[0][0].isHit).toBe(true);
     expect(testBoard.gameboardArr[0][1].isHit).toBe(true);
     expect(testBoard.gameboardArr[0][2].isHit).toBe(true);
-    expect(testBoard.gameboardArr[0][0].sunkStatus).toBe(true);
-})
-
-test('hit gameboard', () => {;
-    testBoard.receiveAttack(4, 6);
-    expect(testBoard.gameboardArr[4][6].isHit).toBe(true);
-
+    expect(testBoard.gameboardArr[0][0].sinkStatus).toBe(true);
+    expect(testBoard.gameboardArr[0][1].sinkStatus).toBe(true);
+    expect(testBoard.gameboardArr[0][2].sinkStatus).toBe(true);
 })
