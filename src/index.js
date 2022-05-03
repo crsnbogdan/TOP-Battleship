@@ -39,7 +39,15 @@ function Gameboard() {
   });
 
   function placeShip(xCoord, yCoord, shipLength) {
-    if (xCoord >= 10 || xCoord < 0 || yCoord < 0 || shipLength < 0) {
+    let shipLastCoord = yCoord + shipLength;
+    if (
+      xCoord >= 10 ||
+      xCoord < 0 ||
+      yCoord < 0 ||
+      shipLength < 0 ||
+      gameboardArr[xCoord][yCoord].containsShip ||
+      shipLastCoord > 10
+    ) {
       return false;
     } else {
       if (yCoord + shipLength > 10) {
@@ -110,5 +118,67 @@ function Gameboard() {
 
   return { gameboardArr, placeShip, receiveAttack, reportShipsDestroyedStatus };
 }
+
+const player = (function (name) {
+  const playerName = name;
+  let playerBoard = Gameboard();
+  let compBoard = Gameboard();
+  placeComputerShips();
+  let playerTurn = true;
+
+  playerBoard.placeShip(0, 0, 3);
+
+  function attackComputerBoard(xCoord, yCoord) {
+    compBoard.receiveAttack(xCoord, yCoord);
+    switchTurn();
+    playComputerTurn(playerBoard);
+  }
+
+  function switchTurn() {
+    if (playerTurn) {
+      playerTurn = false;
+    } else if (!playerTurn) {
+      playerTurn = true;
+    }
+  }
+
+  function placeComputerShips() {
+    generateComputerShip(5);
+    generateComputerShip(4);
+    generateComputerShip(3);
+    generateComputerShip(2);
+  }
+
+  function generateTwoRandomCoords() {
+    let x = Number((Math.random() * 10).toFixed(0));
+    let y = Number((Math.random() * 10).toFixed(0));
+    if (x + y > 9) {
+      return generateTwoRandomCoords();
+    } else {
+      return [x, y];
+    }
+  }
+
+  function generateComputerShip(shipLength) {
+    let [x, y] = generateTwoRandomCoords();
+    while (y + shipLength > 9) {
+      y = Number((Math.random() * 10).toFixed(0));
+    }
+    while (compBoard.gameboardArr[x][shipLength].containsShip) {
+      x = Number((Math.random() * 10).toFixed(0));
+    }
+    compBoard.placeShip(x, y, shipLength);
+  }
+
+  function playComputerTurn(playerBoard) {
+    playerBoard.receiveAttack(...generateTwoRandomCoords());
+    switchTurn();
+  }
+  return { attackComputerBoard };
+})();
+
+player.attackComputerBoard(0, 0);
+player.attackComputerBoard(0, 1);
+player.attackComputerBoard(0, 2);
 
 module.exports = { Gameboard };

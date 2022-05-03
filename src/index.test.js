@@ -1,4 +1,4 @@
-const { Gameboard } = require('./index')
+const { Gameboard, Player } = require('./index')
 let testBoard = Gameboard();
 
 beforeEach(() => testBoard = Gameboard())
