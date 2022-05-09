@@ -42,17 +42,18 @@ function Gameboard() {
     }
   }
 
-  function getShipOfType(shipType) {
+  function getFullShipOfType(shipType) {
     let boardRowIndex;
     let shipPieceIndexes = "";
-    for (boardRow of gameboardArr) {
-      for (boardPiece of boardRow) {
-        if (boardPiece.shipType === shipType) {
+    gameboardArr.forEach((boardRow) => {
+      boardRow.forEach((shipPiece) => {
+        if (shipPiece.shipType === shipType) {
           boardRowIndex = gameboardArr.indexOf(boardRow);
-          shipPieceIndexes += boardRow.indexOf(boardPiece);
+          shipPieceIndexes += boardRow.indexOf(shipPiece);
         }
-      }
-    }
+      });
+    });
+
     let shipInfo = [boardRowIndex, shipPieceIndexes];
     return shipInfo;
   }
@@ -74,26 +75,28 @@ function Gameboard() {
   function receiveAttack(xCoord, yCoord) {
     if (gameboardArr[xCoord][yCoord].containsShip === true) {
       gameboardArr[xCoord][yCoord].hitShip();
+      let currentShipType = gameboardArr[xCoord][yCoord].shipType;
+
+      updateShipSinkStatus(getFullShipOfType(currentShipType));
     } else {
       gameboardArr[xCoord][yCoord].isHit = true;
     }
-    let currentShipType = gameboardArr[xCoord][yCoord].shipType;
-    updateShipSinkStatus(getShipOfType(currentShipType));
   }
 
   function reportShipsDestroyedStatus() {
     let shipPieces = 0;
     let shipPieceHitCounter = 0;
-    for (boardRow of gameboardArr) {
-      for (boardPiece of boardRow) {
+    gameboardArr.forEach((boardRow) => {
+      boardRow.forEach((boardPiece) => {
         if (boardPiece.containsShip === true) {
           shipPieces++;
           if (boardPiece.isHit === true) {
             shipPieceHitCounter++;
           }
         }
-      }
-    }
+      });
+    });
+
     if (shipPieces === shipPieceHitCounter && shipPieces > 0) return true;
     return false;
   }

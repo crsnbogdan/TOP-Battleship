@@ -4,7 +4,7 @@ import {
   clearDOMElement,
 } from "./DOMMethods.js";
 
-function renderGame(playerBoard, compBoard) {
+function renderGame(playerBoard, compBoard, player) {
   let gameboard = playerBoard;
 
   function renderSingleBoardView(gameboard) {
@@ -26,30 +26,44 @@ function renderGame(playerBoard, compBoard) {
         const boardItem = document.createElement("div");
         boardItem.classList.add("boardItem");
         playerBoard.appendChild(boardItem);
+
         boardItem.addEventListener("click", () => {
-          if (boardItem.nextElementSibling.classList.contains("containsShip"))
-            return;
-          if (
-            boardItem.previousElementSibling.classList.contains("containsShip")
-          )
-            return;
+          if (checkAdjacentBoardPieces(shipLength, boardItem)) return;
           if (shipLength < 1) return;
           if (gameboard.placeShip(xCoord, yCoord, shipLength) === false) return;
 
           gameboard.placeShip(xCoord, yCoord, shipLength);
-
-          let currentBoardItem = boardItem.previousElementSibling;
+          let currentBoardItem = boardItem;
+          if (!boardItem.previousElementSibling == null) {
+            currentBoardItem = boardItem;
+          }
           for (let i = 0; i < shipLength; i++) {
-            currentBoardItem.nextElementSibling.classList.add("containsShip");
+            currentBoardItem.classList.add("containsShip");
             currentBoardItem = currentBoardItem.nextElementSibling;
           }
+
           shipLength--;
+
           if (shipLength > 1) {
             updateGamePrompt(`Please place your ${getShipType(shipLength)}`);
-          }
-          if (shipLength <= 1) {
+          } else if (shipLength <= 1) {
             updateGamePrompt("");
             renderDualBoardView(gameboard, compBoard, mainViewSection);
+          }
+
+          function checkAdjacentBoardPieces(shipLength, currentBoardItem) {
+            let breakFunction = false;
+            if (breakFunction === true) return;
+            let boardItem = currentBoardItem;
+            for (let i = 0; i < shipLength; i++) {
+              if (breakFunction) return;
+              if (boardItem.classList.contains("containsShip")) {
+                return (breakFunction = true);
+              } else {
+                boardItem = boardItem.nextElementSibling;
+              }
+            }
+            return breakFunction;
           }
         });
       });
@@ -80,7 +94,18 @@ function renderGame(playerBoard, compBoard) {
               boardItem.classList.add("containsShip");
             }
           }
-          boardItem.addEventListener("click", () => {});
+          if (!displayShips) {
+            boardItem.addEventListener("click", () => {
+              let xCoord = gameboardArr.indexOf(gameboardRow);
+              let yCoord = gameboardRow.indexOf(rowItem);
+
+              player.attackComputerBoard(xCoord, yCoord);
+
+              boardItem.style.backgroundColor = "red";
+              if (rowItem.containsShip)
+                boardItem.style.backgroundColor = "orange";
+            });
+          }
         });
       });
     }
