@@ -9,7 +9,6 @@ PROJECT STATUS: In Progress
 TO DO:
 - add special CSS styling for both hit board pieces, and ship pieces
 - create a module that is shown when the game is over that displays the winner
-- create a module used to get the player's name and initializes the game when submitted, so it can be used in the game
 - update tests
 - create mocks for tests
 - build UI

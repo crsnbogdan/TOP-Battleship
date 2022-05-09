@@ -1,7 +1,7 @@
 import { Gameboard } from "./Gameboard.js";
 
-function Player() {
-  const playerName = "ben"; /*prompt('what should we call you?')*/
+function Player(name) {
+  console.log(name);
   let playerBoard = Gameboard();
   let compBoard = Gameboard();
   placeComputerShips();
