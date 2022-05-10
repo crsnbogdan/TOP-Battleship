@@ -1,8 +1,11 @@
 import style from "./style.css";
-import { Player } from "./Player.js";
-import { renderGame } from "./DOMBoards.js";
-import { renderInitialViewContent, playerName } from "./gameInitialization.js";
-import { clearDOMElement } from "./DOMMethods.js";
+import { Player } from "./modules/Player.js";
+import { renderGame } from "./modules/DOMBoards.js";
+import {
+  renderInitialViewContent,
+  playerName,
+} from "./modules/gameInitialization.js";
+import { clearDOMElement } from "./modules/DOMMethods.js";
 
 renderInitialViewContent();
 let btn = document.getElementById("submit");

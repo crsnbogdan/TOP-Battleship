@@ -1,7 +1,7 @@
 import { Gameboard } from "./Gameboard.js";
+import { updateGamePrompt } from "./DOMMethods.js";
 
 function Player(name) {
-  console.log(name);
   let playerBoard = Gameboard();
   let compBoard = Gameboard();
   placeComputerShips();
@@ -12,13 +12,15 @@ function Player(name) {
   function checkIfGameEnded() {
     if (gameOver) return;
     if (compBoard.reportShipsDestroyedStatus()) {
-      winner = "player";
+      winner = name;
       gameOver = true;
+      updateGamePrompt(`${winner} sunk all of the computer's ships and won`);
       return;
     }
     if (playerBoard.reportShipsDestroyedStatus()) {
-      winner = "computer";
+      winner = "The computer";
       gameOver = true;
+      updateGamePrompt(`${winner} sunk all your ships and won`);
       return;
     }
   }
@@ -76,13 +78,13 @@ function Player(name) {
 
   function playComputerTurn(playerBoard) {
     if (gameOver) return;
+    checkIfGameEnded();
     let [x, y] = generateTwoRandomCoords(true);
-    if (playerBoard.gameboardArr[x][y].isHit) {
+    while (playerBoard.gameboardArr[x][y].isHit) {
       [x, y] = generateTwoRandomCoords(true);
     }
     playerBoard.receiveAttack(x, y);
     switchTurn();
-    checkIfGameEnded();
     return [x, y];
   }
   return { attackComputerBoard, gameOver, playerBoard, compBoard };
