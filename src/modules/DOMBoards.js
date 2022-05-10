@@ -11,7 +11,7 @@ function renderGame(playerBoard, compBoard, player) {
     let mainViewSection = document.querySelector(".mainviewSection");
     let gameboardArr = gameboard.gameboardArr;
     let shipLength = 5;
-    updateGamePrompt(`Please place your ${getShipType(shipLength)}`);
+    updateGamePrompt(`Please place your ${getShipType(shipLength)}`, document);
     let playerBoardContainer = document.createElement("div");
     playerBoardContainer.classList.add("playerboard-container");
     mainViewSection.appendChild(playerBoardContainer);
@@ -45,9 +45,12 @@ function renderGame(playerBoard, compBoard, player) {
           shipLength--;
 
           if (shipLength > 1) {
-            updateGamePrompt(`Please place your ${getShipType(shipLength)}`);
+            updateGamePrompt(
+              `Please place your ${getShipType(shipLength)}`,
+              document
+            );
           } else if (shipLength <= 1) {
-            updateGamePrompt("");
+            updateGamePrompt("", document);
             renderDualBoardView(gameboard, compBoard, mainViewSection);
           }
 

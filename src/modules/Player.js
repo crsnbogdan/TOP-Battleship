@@ -1,6 +1,10 @@
 import { Gameboard } from "./Gameboard.js";
 import { updateGamePrompt } from "./DOMMethods.js";
-
+/*
+let Gameboard = require('./Gameboard');
+let DOMMethods = require('./DOMMethods');
+let updateGamePrompt = DOMMethods.updateGamePrompt()
+*/
 function Player(name) {
   let playerBoard = Gameboard();
   let compBoard = Gameboard();
@@ -14,13 +18,16 @@ function Player(name) {
     if (compBoard.reportShipsDestroyedStatus()) {
       winner = name;
       gameOver = true;
-      updateGamePrompt(`${winner} sunk all of the computer's ships and won`);
+      updateGamePrompt(
+        `${winner} sunk all of the computer's ships and won`,
+        document
+      );
       return;
     }
     if (playerBoard.reportShipsDestroyedStatus()) {
       winner = "The computer";
       gameOver = true;
-      updateGamePrompt(`${winner} sunk all your ships and won`);
+      updateGamePrompt(`${winner} sunk all your ships and won`, document);
       return;
     }
   }
@@ -91,3 +98,4 @@ function Player(name) {
 }
 
 export { Player };
+//module.exports = Player;

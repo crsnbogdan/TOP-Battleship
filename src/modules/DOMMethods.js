@@ -1,6 +1,10 @@
-function updateGamePrompt(message) {
-  let prompt = document.querySelector(".gameprompt");
+function updateGamePrompt(message, target, returnPrompt) {
+  message = String(message);
+  let prompt = target.querySelector(".gameprompt");
   prompt.textContent = message;
+  if (returnPrompt) {
+    return prompt.textContent;
+  }
 }
 
 function getShipType(shipLength) {
@@ -18,9 +22,6 @@ function getShipType(shipLength) {
     case 2:
       shipType = "Submarine";
       break;
-    case 1:
-      shipType = "Destroyer";
-      break;
   }
   return shipType;
 }
@@ -28,4 +29,11 @@ function getShipType(shipLength) {
 function clearDOMElement(targetElement) {
   targetElement.textContent = "";
 }
+
 export { updateGamePrompt, getShipType, clearDOMElement };
+/*
+module.exports = {
+    updateGamePrompt: updateGamePrompt,
+    getShipType: getShipType,
+}
+*/

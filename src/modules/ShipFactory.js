@@ -17,5 +17,5 @@ function ShipFactory(shipLength) {
   });
   return ship;
 }
-// module.exports = ShipFactory;
 export { ShipFactory };
+//module.exports = ShipFactory;
