@@ -6,7 +6,7 @@
     "scripts": {
         "test": "jest",
         "build": "webpack --mode=production --node-env=production",
-        "watch": "webpack --watch"
+        "watch": "jest --watch"
     },
     "repository": {
         "type": "git",

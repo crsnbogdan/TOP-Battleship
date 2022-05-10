@@ -1,4 +1,5 @@
 import { ShipFactory } from "./ShipFactory";
+// const ShipFactory = require("./ShipFactory")
 
 function Gameboard() {
   let gameboardArr = [
@@ -103,4 +104,5 @@ function Gameboard() {
 
   return { gameboardArr, placeShip, receiveAttack, reportShipsDestroyedStatus };
 }
+// module.exports = Gameboard;
 export { Gameboard };
