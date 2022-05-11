@@ -1,4 +1,4 @@
-const DOMModule = require("../modules/DOMMethods");
+const DOMModule = require("../modules/HelperFunctions");
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 let dom = new JSDOM(``);

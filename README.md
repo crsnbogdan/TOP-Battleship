@@ -1,6 +1,6 @@
 TITLE: Battleship
 
-VERSION NUMBER: 1.5
+VERSION NUMBER: 1.6
 
 DESCRIPTION: This project is focused on using TDD to create a battleship game. The goal is to create a working game without using any visual methods ( such as using console.log() or DOM methods ), and only once the game is working to create the UI
 
@@ -11,8 +11,10 @@ INSTRUCTIONS: To stop the test file from throwing an error when executing the te
 TO DO:
 - add special CSS styling for both hit board pieces, and ship pieces
 - build UI
+- show when either the player or the computer won via text
 
 TECHNOLOGIES USED: HTML, CSS, JS, Webpack, NPM, Jest
 
 WHAT I'VE LEARNED:
 - how to write tests to see if a unit of code works as expected
+- how to create mocks for tests

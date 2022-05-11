@@ -1,11 +1,11 @@
 import style from "./style.css";
-import { Player } from "./modules/Player.js";
-import { renderGame } from "./modules/DOMBoards.js";
+import { Player } from "./modules/PlayerModule.js";
+import { renderGame } from "./modules/RenderGameboards.js";
 import {
   renderInitialViewContent,
   playerName,
-} from "./modules/gameInitialization.js";
-import { clearDOMElement } from "./modules/DOMMethods.js";
+} from "./modules/InitializeGame.js";
+import { clearDOMElement } from "./modules/HelperFunctions.js";
 
 renderInitialViewContent();
 let btn = document.getElementById("submit");

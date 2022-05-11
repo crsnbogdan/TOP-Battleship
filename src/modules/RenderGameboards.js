@@ -2,7 +2,7 @@ import {
   updateGamePrompt,
   getShipType,
   clearDOMElement,
-} from "./DOMMethods.js";
+} from "./HelperFunctions.js";
 
 function renderGame(playerBoard, compBoard, player) {
   let gameboard = playerBoard;
@@ -110,8 +110,11 @@ function renderGame(playerBoard, compBoard, player) {
               [xHitByCompCoord, yHitByCompCoord] = cachedCompHitCoords;
               updateGameboardItem(xHitByCompCoord, yHitByCompCoord);
               boardItem.style.backgroundColor = "red";
-              if (rowItem.containsShip)
+              //updateGamePrompt(``, document)
+              if (rowItem.containsShip) {
+                updateGamePrompt(`You've hit a computer ship`, document);
                 boardItem.style.backgroundColor = "orange";
+              }
             });
           }
         });
@@ -125,11 +128,17 @@ function renderGame(playerBoard, compBoard, player) {
         DOMPlayerboardContainer.querySelectorAll(".boardItem");
       let boardItemIndex = xCoord * 10 + yCoord;
       let boardItem = DOMBoardItemArr[boardItemIndex];
-      boardItem.style.backgroundColor = "pink";
+      if (
+        !playerBoard.gameboardArr[xHitByCompCoord][yHitByCompCoord].containsShip
+      ) {
+        boardItem.style.backgroundColor = "pink";
+        updateGamePrompt(``, document);
+      }
       if (
         playerBoard.gameboardArr[xHitByCompCoord][yHitByCompCoord].containsShip
       ) {
         boardItem.style.backgroundColor = "green";
+        updateGamePrompt(`The computer hit one of your ships`, document);
       }
     }
     renderBoard(playerBoard, mainViewSection, true);

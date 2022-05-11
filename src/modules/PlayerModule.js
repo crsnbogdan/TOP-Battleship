@@ -1,11 +1,12 @@
-import { Gameboard } from "./Gameboard.js";
-import { updateGamePrompt } from "./DOMMethods.js";
+import { Gameboard } from "./GameboardModule";
+import { updateGamePrompt } from "./HelperFunctions.js";
 /*
-let Gameboard = require('./Gameboard');
-let DOMMethods = require('./DOMMethods');
-let updateGamePrompt = DOMMethods.updateGamePrompt()
+let Gameboard = require('./GameboardModule');
+let HelperFunctions = require('./HelperFunctions');
+let updateGamePrompt = HelperFunctions.updateGamePrompt();
 */
 function Player(name) {
+  if (name == "" || name == "undefined" || name == "null") return;
   let playerBoard = Gameboard();
   let compBoard = Gameboard();
   placeComputerShips();
@@ -27,8 +28,10 @@ function Player(name) {
     if (playerBoard.reportShipsDestroyedStatus()) {
       winner = "The computer";
       gameOver = true;
-      updateGamePrompt(`${winner} sunk all your ships and won`, document);
-      return;
+      return updateGamePrompt(
+        `${winner} sunk all your ships and won`,
+        document
+      );
     }
   }
 
@@ -94,7 +97,13 @@ function Player(name) {
     switchTurn();
     return [x, y];
   }
-  return { attackComputerBoard, gameOver, playerBoard, compBoard };
+  return {
+    attackComputerBoard,
+    gameOver,
+    playerBoard,
+    compBoard,
+    checkIfGameEnded,
+  };
 }
 
 export { Player };

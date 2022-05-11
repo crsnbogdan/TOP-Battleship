@@ -1,7 +1,6 @@
 function updateGamePrompt(message, target, returnPrompt) {
-  message = String(message);
   let prompt = target.querySelector(".gameprompt");
-  prompt.textContent = message;
+  prompt.textContent = String(message);
   if (returnPrompt) {
     return prompt.textContent;
   }
@@ -31,6 +30,7 @@ function clearDOMElement(targetElement) {
 }
 
 export { updateGamePrompt, getShipType, clearDOMElement };
+
 /*
 module.exports = {
     updateGamePrompt: updateGamePrompt,

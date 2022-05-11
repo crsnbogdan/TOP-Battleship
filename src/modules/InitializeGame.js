@@ -1,9 +1,11 @@
-import { clearDOMElement } from "./DOMMethods.js";
+import { clearDOMElement } from "./HelperFunctions.js";
+import { updateGamePrompt } from "./HelperFunctions.js";
 let playerName = "";
 
 function renderInitialViewContent() {
   let mainViewSection = document.querySelector(".mainviewSection");
   clearDOMElement(mainViewSection);
+  updateGamePrompt("Please input your name", document);
   let form = document.createElement("form");
   mainViewSection.appendChild(form);
   let formInput = document.createElement("input");
@@ -13,6 +15,7 @@ function renderInitialViewContent() {
   formSubmit.setAttribute("type", "submit");
   form.appendChild(formSubmit);
   form.addEventListener("submit", (e) => {
+    if (formInput.value === "") return;
     e.preventDefault();
     let cachedPlayerName = formInput.value;
     playerName = cachedPlayerName;
