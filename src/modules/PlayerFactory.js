@@ -1,10 +1,11 @@
-import { Gameboard } from "./GameboardModule";
+import { Gameboard } from "./GameboardFactory";
 import { updateGamePrompt } from "./HelperFunctions.js";
 /*
-let Gameboard = require('./GameboardModule');
+let Gameboard = require('./GameboardFactory');
 let HelperFunctions = require('./HelperFunctions');
 let updateGamePrompt = HelperFunctions.updateGamePrompt();
 */
+
 function Player(name) {
   if (name == "" || name == "undefined" || name == "null") return;
   let playerBoard = Gameboard();
@@ -15,23 +16,23 @@ function Player(name) {
   let winner = "";
 
   function checkIfGameEnded() {
-    if (gameOver) return;
+    if (gameOver && winner === name) {
+      updateGamePrompt(
+        `You sunk all of the computer's ships and won`,
+        document
+      );
+    } else if (gameOver && winner === "The computer") {
+      updateGamePrompt(`${winner} sunk all your ships and won`, document);
+    }
     if (compBoard.reportShipsDestroyedStatus()) {
       winner = name;
       gameOver = true;
-      updateGamePrompt(
-        `${winner} sunk all of the computer's ships and won`,
-        document
-      );
-      return;
+      checkIfGameEnded();
     }
     if (playerBoard.reportShipsDestroyedStatus()) {
       winner = "The computer";
       gameOver = true;
-      return updateGamePrompt(
-        `${winner} sunk all your ships and won`,
-        document
-      );
+      checkIfGameEnded();
     }
   }
 
@@ -40,7 +41,6 @@ function Player(name) {
     compBoard.receiveAttack(xCoord, yCoord);
     switchTurn();
     let cachedCoords = playComputerTurn(playerBoard);
-
     checkIfGameEnded();
     return cachedCoords;
   }
@@ -60,10 +60,10 @@ function Player(name) {
     setTimeout(generateComputerShip(2), 400);
   }
 
-  function generateTwoRandomCoords(isForAttack) {
+  function generateTwoRandomCoords(areForAttack) {
     let x = Math.floor(Number(Math.random() * 10));
     let y = Math.floor(Number(Math.random() * 10));
-    if (isForAttack) {
+    if (areForAttack) {
       return [x, y];
     } else {
       if (x + y > 9) {
@@ -88,7 +88,6 @@ function Player(name) {
 
   function playComputerTurn(playerBoard) {
     if (gameOver) return;
-    checkIfGameEnded();
     let [x, y] = generateTwoRandomCoords(true);
     while (playerBoard.gameboardArr[x][y].isHit) {
       [x, y] = generateTwoRandomCoords(true);

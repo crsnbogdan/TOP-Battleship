@@ -1,5 +1,5 @@
 import style from "./style.css";
-import { Player } from "./modules/PlayerModule.js";
+import { Player } from "./modules/PlayerFactory.js";
 import { renderGame } from "./modules/RenderGameboards.js";
 import {
   renderInitialViewContent,

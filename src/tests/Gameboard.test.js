@@ -1,4 +1,4 @@
-const Gameboard = require("../modules/GameboardModule");
+const Gameboard = require("../modules/GameboardFactory");
 let testBoard = Gameboard();
 
 beforeEach(() => (testBoard = Gameboard()));

@@ -11,10 +11,10 @@ INSTRUCTIONS: To stop the test file from throwing an error when executing the te
 TO DO:
 - add special CSS styling for both hit board pieces, and ship pieces
 - build UI
-- show when either the player or the computer won via text
 
 TECHNOLOGIES USED: HTML, CSS, JS, Webpack, NPM, Jest
 
 WHAT I'VE LEARNED:
 - how to write tests to see if a unit of code works as expected
 - how to create mocks for tests
+- how to develop a product using tests, rather than rely on visual methods ( such as DOM methods and console logs )

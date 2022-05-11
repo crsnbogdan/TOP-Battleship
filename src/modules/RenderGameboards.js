@@ -75,6 +75,7 @@ function renderGame(playerBoard, compBoard, player) {
 
   function renderDualBoardView(playerBoard, compBoard, containerElement) {
     clearDOMElement(containerElement);
+    updateGamePrompt("in progress...", document);
     let mainViewSection = document.querySelector(".mainviewSection");
 
     function renderBoard(board, containerElement, displayShips) {
@@ -110,9 +111,7 @@ function renderGame(playerBoard, compBoard, player) {
               [xHitByCompCoord, yHitByCompCoord] = cachedCompHitCoords;
               updateGameboardItem(xHitByCompCoord, yHitByCompCoord);
               boardItem.style.backgroundColor = "red";
-              //updateGamePrompt(``, document)
               if (rowItem.containsShip) {
-                updateGamePrompt(`You've hit a computer ship`, document);
                 boardItem.style.backgroundColor = "orange";
               }
             });
@@ -132,13 +131,11 @@ function renderGame(playerBoard, compBoard, player) {
         !playerBoard.gameboardArr[xHitByCompCoord][yHitByCompCoord].containsShip
       ) {
         boardItem.style.backgroundColor = "pink";
-        updateGamePrompt(``, document);
       }
       if (
         playerBoard.gameboardArr[xHitByCompCoord][yHitByCompCoord].containsShip
       ) {
         boardItem.style.backgroundColor = "green";
-        updateGamePrompt(`The computer hit one of your ships`, document);
       }
     }
     renderBoard(playerBoard, mainViewSection, true);
