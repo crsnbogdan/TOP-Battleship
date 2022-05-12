@@ -1,5 +1,6 @@
 function updateGamePrompt(message, target, returnPrompt) {
   let prompt = target.querySelector(".gameprompt");
+  if (message.includes("won")) prompt.classList.add("congratulations");
   prompt.textContent = String(message);
   if (returnPrompt) {
     return prompt.textContent;
@@ -20,6 +21,9 @@ function getShipType(shipLength) {
       break;
     case 2:
       shipType = "Submarine";
+      break;
+    case 1:
+      shipType = "Destroyer";
       break;
   }
   return shipType;

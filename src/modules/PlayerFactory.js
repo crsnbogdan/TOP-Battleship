@@ -27,18 +27,16 @@ function Player(name) {
     if (compBoard.reportShipsDestroyedStatus()) {
       winner = name;
       gameOver = true;
-      checkIfGameEnded();
     }
     if (playerBoard.reportShipsDestroyedStatus()) {
       winner = "The computer";
       gameOver = true;
-      checkIfGameEnded();
     }
   }
 
   function attackComputerBoard(xCoord, yCoord) {
-    if (gameOver) return;
     compBoard.receiveAttack(xCoord, yCoord);
+    if (gameOver) return;
     switchTurn();
     let cachedCoords = playComputerTurn(playerBoard);
     checkIfGameEnded();
@@ -51,13 +49,15 @@ function Player(name) {
     } else if (!playerTurn) {
       playerTurn = true;
     }
+    checkIfGameEnded();
   }
 
   function placeComputerShips() {
-    setTimeout(generateComputerShip(5), 100);
-    setTimeout(generateComputerShip(4), 200);
-    setTimeout(generateComputerShip(3), 300);
-    setTimeout(generateComputerShip(2), 400);
+    setTimeout(generateComputerShip(5), 0);
+    setTimeout(generateComputerShip(4), 0);
+    setTimeout(generateComputerShip(3), 0);
+    setTimeout(generateComputerShip(2), 0);
+    setTimeout(generateComputerShip(1), 0);
   }
 
   function generateTwoRandomCoords(areForAttack) {

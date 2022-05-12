@@ -8,7 +8,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'Project Name',
+            title: 'Test Driven Battleships',
             template: 'src/index.html',
             children: true,
         }),

@@ -2,30 +2,128 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Kanit", sans-serif;
+  color: #2b2d42;
 }
 
-.mainviewSection {
+.flex {
+  display: flex;
+}
+
+.container {
+  max-width: 80%;
+  margin: auto;
+}
+
+.header {
+  background-color: #2b2d42;
+  justify-content: center;
+  align-items: center;
+  padding: 25px;
+  height: 20vh;
+}
+
+.headerTitle {
+  padding-left: 20px;
+  color: #edf2f4;
+  text-transform: uppercase;
+}
+
+.headerTitle span {
+  color: #5335b6;
+}
+
+.headerLogo {
+  height: 70px;
+}
+
+.gameArea {
+  background-color: #edf2f4;
+  height: 80vh;
+}
+
+.gameAreaWrapper {
+  height: 60vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+form {
+  margin-top: -37vh;
+}
+
+.boardviewSection,
+.boardnamesSection {
+  margin-top: -70px;
   display: flex;
   align-items: center;
+  width: 80%;
   justify-content: space-around;
+}
+
+.boardnamesSection {
+  visibility: hidden;
+}
+
+p.boardName.playerBoardText,
+p.boardName.compBoardText {
+  margin-top: -170px;
+}
+
+.gamepromptSection {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 20vh;
 }
 
 .playerboard,
 .gameboard {
-  max-width: 550px;
-  max-height: 550px;
+  max-width: 300px;
+  max-height: 300px;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   gap: 5px;
 }
 
 .boardItem {
-  height: 50px;
-  width: 50px;
-  background-color: blue;
+  height: 25px;
+  width: 25px;
+  background-color: #959595;
 }
 
 .boardItem:hover,
 .containsShip {
-  background-color: cyan;
+  background-color: #2e2e2e;
+}
+
+.containsHitShip:before {
+  content: "•";
+  transform: translateX(10px);
+  position: absolute;
+}
+
+div.boardviewSection > form > input:nth-child(1) {
+  font-size: 15px;
+  padding: 10px;
+  border: none;
+  outline: none;
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
+  margin-right: 5px;
+  color: #5335b6;
+}
+
+#submit {
+  font-size: 15px;
+  padding: 10px;
+  border: none;
+  outline: none;
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+  margin-right: 5px;
+  background-color: #5335b6;
+  color: white;
+  font-weight: bold;
 }

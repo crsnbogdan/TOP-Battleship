@@ -8,13 +8,13 @@ function renderGame(playerBoard, compBoard, player) {
   let gameboard = playerBoard;
 
   function renderSingleBoardView(gameboard) {
-    let mainViewSection = document.querySelector(".mainviewSection");
+    let boardviewSection = document.querySelector(".boardviewSection");
     let gameboardArr = gameboard.gameboardArr;
     let shipLength = 5;
     updateGamePrompt(`Please place your ${getShipType(shipLength)}`, document);
     let playerBoardContainer = document.createElement("div");
     playerBoardContainer.classList.add("playerboard-container");
-    mainViewSection.appendChild(playerBoardContainer);
+    boardviewSection.appendChild(playerBoardContainer);
     let playerBoard = document.createElement("div");
     playerBoard.classList.add("playerboard");
     playerBoardContainer.appendChild(playerBoard);
@@ -44,14 +44,14 @@ function renderGame(playerBoard, compBoard, player) {
 
           shipLength--;
 
-          if (shipLength > 1) {
+          if (shipLength > 0) {
             updateGamePrompt(
               `Please place your ${getShipType(shipLength)}`,
               document
             );
-          } else if (shipLength <= 1) {
+          } else if (shipLength < 1) {
             updateGamePrompt("", document);
-            renderDualBoardView(gameboard, compBoard, mainViewSection);
+            renderDualBoardView(gameboard, compBoard, boardviewSection);
           }
 
           function checkAdjacentBoardPieces(shipLength, currentBoardItem) {
@@ -75,8 +75,10 @@ function renderGame(playerBoard, compBoard, player) {
 
   function renderDualBoardView(playerBoard, compBoard, containerElement) {
     clearDOMElement(containerElement);
-    updateGamePrompt("in progress...", document);
-    let mainViewSection = document.querySelector(".mainviewSection");
+    let boardNamesContainer = document.querySelector(".boardnamesSection");
+    boardNamesContainer.style.visibility = "visible";
+    updateGamePrompt("In progress...", document);
+    let boardviewSection = document.querySelector(".boardviewSection");
 
     function renderBoard(board, containerElement, displayShips) {
       let boardContainer = document.createElement("div");
@@ -108,11 +110,14 @@ function renderGame(playerBoard, compBoard, player) {
                 xCoord,
                 yCoord
               );
+              if (rowItem.containsShip) {
+                boardItem.style.backgroundColor = "#5234B5";
+                boardItem.classList.add("containsHitShip");
+              }
               [xHitByCompCoord, yHitByCompCoord] = cachedCompHitCoords;
               updateGameboardItem(xHitByCompCoord, yHitByCompCoord);
-              boardItem.style.backgroundColor = "red";
-              if (rowItem.containsShip) {
-                boardItem.style.backgroundColor = "orange";
+              if (!rowItem.containsShip) {
+                boardItem.style.backgroundColor = "#d2d2d2";
               }
             });
           }
@@ -130,16 +135,17 @@ function renderGame(playerBoard, compBoard, player) {
       if (
         !playerBoard.gameboardArr[xHitByCompCoord][yHitByCompCoord].containsShip
       ) {
-        boardItem.style.backgroundColor = "pink";
+        boardItem.style.backgroundColor = "#d2d2d2";
       }
       if (
         playerBoard.gameboardArr[xHitByCompCoord][yHitByCompCoord].containsShip
       ) {
-        boardItem.style.backgroundColor = "green";
+        boardItem.style.backgroundColor = "#5234B5";
+        boardItem.classList.add("containsHitShip");
       }
     }
-    renderBoard(playerBoard, mainViewSection, true);
-    renderBoard(compBoard, mainViewSection, false);
+    renderBoard(playerBoard, boardviewSection, true);
+    renderBoard(compBoard, boardviewSection, false);
   }
   renderSingleBoardView(gameboard);
 }

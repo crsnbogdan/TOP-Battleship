@@ -6,15 +6,16 @@ import {
   playerName,
 } from "./modules/InitializeGame.js";
 import { clearDOMElement } from "./modules/HelperFunctions.js";
-
-renderInitialViewContent();
-let btn = document.getElementById("submit");
-let player = null;
-btn.addEventListener("click", () => {
-  setTimeout(() => {
-    let mainViewSection = document.querySelector(".mainviewSection");
-    clearDOMElement(mainViewSection);
-    player = Player(playerName);
-    renderGame(player.playerBoard, player.compBoard, player);
-  }, 0);
-});
+(function () {
+  renderInitialViewContent();
+  let btn = document.getElementById("submit");
+  let player = null;
+  btn.addEventListener("click", () => {
+    setTimeout(() => {
+      let boardviewSection = document.querySelector(".boardviewSection");
+      clearDOMElement(boardviewSection);
+      player = Player(playerName);
+      renderGame(player.playerBoard, player.compBoard, player);
+    }, 0);
+  });
+})();
