@@ -1,7 +1,6 @@
 import { clearDOMElement } from "./HelperFunctions.js";
 import { updateGamePrompt } from "./HelperFunctions.js";
 import logo from "../assets/logo.png"
-let playerName = "";
 
 function renderInitialViewContent() {
     let logoImg = document.querySelector('img');
